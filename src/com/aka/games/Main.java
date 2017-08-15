@@ -22,8 +22,8 @@ public class Main {
                 break;
             case 1:
                 Hangman start = new Hangman();
-                //System.out.println(start.word);
-                System.out.println(Arrays.toString(start.hiddenword));
+                System.out.println(start.word);
+                start.appRun();
                 break;
             case 2:
                 System.out.println(2);

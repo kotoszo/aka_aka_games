@@ -8,7 +8,7 @@ import static java.lang.Math.toIntExact;
 public class Hangman {
 
     String word;
-    String[] hiddenword;
+    Character[] hiddenword;
 
     public Hangman() {
 
@@ -45,12 +45,50 @@ public class Hangman {
         return wordList[randomNr];
     }
 
-    private String[] hideWord(String word) {
-        String[] hiddenWord = new String[word.length()];
+    private Character[] hideWord(String word) {
+        Character[] hiddenWord = new Character[word.length()];
 
         for (int i=0; i < word.length(); i++){
-            hiddenWord[i] = "_";
+            hiddenWord[i] = '_';
         }
         return hiddenWord;
+    }
+
+    public void appRun() {
+        boolean isOver = false;
+        int mistakes = 0;
+        int tries = 0;
+        ArrayList<Character> usedChars = new ArrayList<>();
+        while (!isOver) {
+            boolean isContain = false;
+            System.out.println(Arrays.toString(hiddenword));
+            System.out.println("Give me your shot bro!");
+            Scanner hangManInput = new Scanner(System.in);
+            char guess = hangManInput.next().charAt(0);
+            if (!usedChars.contains(guess)) {
+                for (int i=0; i < word.length(); i++) {
+                    if (word.charAt(i) == guess) {
+                        hiddenword[i] = guess;
+                        isContain = true;
+                        tries++;
+                    }
+                }
+                if (!isContain) {
+                    usedChars.add(guess);
+                    isContain = false;
+                    mistakes++;
+                }
+            }
+            System.out.println("Your already used characters: " + usedChars);
+            if (mistakes == 10) {
+                isOver = true;
+                System.out.println("Fucked up!");
+            }
+            else if (tries == word.length()) {
+                isOver = true;
+                System.out.println("You won!Huuu!");
+            }
+        }
+
     }
 }
