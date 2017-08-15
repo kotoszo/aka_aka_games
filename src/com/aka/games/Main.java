@@ -1,5 +1,6 @@
 package com.aka.games;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Main {
@@ -21,8 +22,7 @@ public class Main {
                 break;
             case 1:
                 Hangman start = new Hangman();
-                start.getFile();
-                System.out.println(1);
+                start.appRun();
                 break;
             case 2:
                 System.out.println(2);
