@@ -1,6 +1,7 @@
 package com.aka.games;
 
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Main {
 
@@ -25,7 +26,13 @@ public class Main {
                 System.out.println(1);
                 break;
             case 2:
-                Dice startDice = new Dice();
+                Scanner input = new Scanner(System.in);
+                System.out.println("How many units attack: ");
+                int attacker = input.nextInt();
+                System.out.println("How many units defend: ");
+                int defender = input.nextInt();
+                input.close();
+                Dice startDice = new Dice(attacker, defender);
                 startDice.game();
                 break;
             case 3:
