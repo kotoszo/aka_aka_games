@@ -22,7 +22,6 @@ public class Main {
                 break;
             case 1:
                 Hangman start = new Hangman();
-                System.out.println(start.word);
                 start.appRun();
                 break;
             case 2:

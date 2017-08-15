@@ -1,7 +1,6 @@
 package com.aka.games;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.*;
 import static java.lang.Math.toIntExact;
@@ -35,7 +34,7 @@ public class Hangman {
                 wordsList[index++] = scanner.next();
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Meh");
+            System.out.println("Sorry, I couldn't find the file.");
         }
         return wordsList;
 
@@ -130,7 +129,7 @@ public class Hangman {
             boolean isContain = false;
             printMatrix();
             System.out.println(Arrays.toString(hiddenword));
-            System.out.println("Give me your shot bro!");
+            System.out.println("Give me your guess!");
             Scanner hangManInput = new Scanner(System.in);
             char guess = hangManInput.next().charAt(0);
             if (Character.isDigit(guess)) {
@@ -156,12 +155,15 @@ public class Hangman {
             if (mistakes == 10) {
                 isOver = true;
                 printMatrix();
+                System.out.println("The word was: " + word);
                 System.out.println("GAME OVER!");
             }
 
             else if (tries == word.length()) {
                 isOver = true;
+                printMatrix();
                 System.out.println("You won! Huuu!");
+                System.out.println("The word was: " + word);
             }
         }
 
