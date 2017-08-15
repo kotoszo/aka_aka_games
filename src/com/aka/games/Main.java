@@ -26,9 +26,7 @@ public class Main {
                 System.out.println(1);
                 break;
             case 2:
-                int attacker = game.dice("How many units attack: ");
-                int defender = game.dice("How many units defend: ");
-                Dice startDice = new Dice(attacker, defender);
+                Dice startDice = new Dice();
                 startDice.game();
                 break;
             case 3:

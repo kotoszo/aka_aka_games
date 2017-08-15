@@ -36,9 +36,15 @@ public class InputHandler {
         return userInput;
     }
 
-    public int dice(String message) {
+    public int diceInt(String message) {
         System.out.print(message);
         Scanner input = new Scanner(System.in);
         return input.nextInt();
+    }
+
+    public String diceStr(String message) {
+        System.out.print(message);
+        Scanner input = new Scanner(System.in);
+        return input.next();
     }
 }
