@@ -3,28 +3,33 @@ package com.aka.games;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+import static java.lang.Math.toIntExact;
 
 public class Hangman {
 
-    Object word;
+    String word;
+    String[] hiddenword;
 
     public Hangman() {
 
-        ArrayList<String> wordList = getFile();
+        String[] wordList = getFile();
         this.word = getWord(wordList);
+        this.hiddenword = hideWord(word);
     }
 
-    public ArrayList getFile() {
-        ArrayList<String> wordsList = new ArrayList<>();
-
+    private String[] getFile() {
 
         URL url = getClass().getResource("words.csv");
-        File file = new File(url.getFile());
+        File file = new File(url.getPath());
+        int fileLength = toIntExact(file.length());
+
+        int index = 0;
+        String[] wordsList = new String[fileLength];
 
         try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNext()) {
-                wordsList.add(scanner.next());
+                wordsList[index++] = scanner.next();
             }
         } catch (FileNotFoundException e) {
             System.out.println("Meh");
@@ -33,10 +38,19 @@ public class Hangman {
 
     }
 
-    public Object getWord(ArrayList wordList){
+    private String getWord(String[] wordList){
 
         Random random = new Random();
         int randomNr = random.nextInt(35);
-        return wordList.get(randomNr);
+        return wordList[randomNr];
+    }
+
+    private String[] hideWord(String word) {
+        String[] hiddenWord = new String[word.length()];
+
+        for (int i=0; i < word.length(); i++){
+            hiddenWord[i] = "_";
+        }
+        return hiddenWord;
     }
 }
