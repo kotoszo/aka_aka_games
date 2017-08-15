@@ -124,6 +124,7 @@ public class Hangman {
         boolean isOver = false;
         int mistakes = 0;
         int tries = 0;
+        int winLose = 0;
         ArrayList<Character> usedChars = new ArrayList<>();
         while (!isOver) {
             boolean isContain = false;
@@ -152,20 +153,27 @@ public class Hangman {
                 }
             }
             System.out.println("Your already used characters: " + usedChars);
-            if (mistakes == 10) {
+            if (mistakes == 10 || tries == word.length()) {
                 isOver = true;
-                printMatrix();
-                System.out.println("The word was: " + word);
-                System.out.println("GAME OVER!");
-            }
-
-            else if (tries == word.length()) {
-                isOver = true;
-                printMatrix();
-                System.out.println("You won! Huuu!");
-                System.out.println("The word was: " + word);
+                if (mistakes == 10) {
+                    winLose = 2;
+                } else {
+                    winLose = 1;
+                }
+                gameOver(winLose);
             }
         }
 
+    }
+
+    private void gameOver(int winLose){
+        printMatrix();
+        switch (winLose){
+            case 1:
+                System.out.println("You won! Huuu!");
+            case 2:
+                System.out.println("GAME OVER!");
+        }
+        System.out.println("The word was: " + word);
     }
 }
