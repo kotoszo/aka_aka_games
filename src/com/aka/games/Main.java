@@ -6,7 +6,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        String[] gameList = {"Hangman", "Dice for risk", "GTA", "Quit"};
+        String[] gameList = {"Hangman", "Dice for risk", "GTA"};
         //Hangman a = new Hangman();
         //System.out.println(a.word);
 
@@ -20,6 +20,8 @@ public class Main {
                 System.exit(0);
                 break;
             case 1:
+                Hangman start = new Hangman();
+                start.getFile();
                 System.out.println(1);
                 break;
             case 2:
@@ -42,13 +44,9 @@ public class Main {
             gameLib.put(index++, game);
         }
 
-        for (int i=1; i <= gameLib.size(); i++){
-            if (i == 4) {
-                System.out.printf("\n[%d]     %s\n", 0, gameLib.get(i));
-            } else {
-                System.out.printf("[%d]     %s\n", i, gameLib.get(i));
-            }
-
+        for (int i=1; i <= gameLib.size(); i++) {
+            System.out.printf("[%d]     %s\n", i, gameLib.get(i));
         }
+        System.out.printf("\n[%d]     %s\n", 0, "Quit");
     }
 }

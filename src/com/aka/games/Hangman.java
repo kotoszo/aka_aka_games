@@ -27,7 +27,7 @@ public class Hangman {
 
         try {
 
-            Scanner scanner = new Scanner(new File("/home/richter/CodeCool/JAVA/tw/aka_games/aka_aka_games/src/com/aka/games/words.csv"));
+            Scanner scanner = new Scanner(new File("/home/tanacs/java/aka_aka_games/src/com/aka/games/words.csv"));
 
             // here comes the iteration
             
