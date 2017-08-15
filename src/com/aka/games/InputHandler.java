@@ -36,8 +36,9 @@ public class InputHandler {
         return userInput;
     }
 
-    public int dice(int userInput) {
-
-        return userInput;
+    public int dice(String message) {
+        System.out.print(message);
+        Scanner input = new Scanner(System.in);
+        return input.nextInt();
     }
 }

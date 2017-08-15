@@ -26,12 +26,8 @@ public class Main {
                 System.out.println(1);
                 break;
             case 2:
-                Scanner input = new Scanner(System.in);
-                System.out.println("How many units attack: ");
-                int attacker = input.nextInt();
-                System.out.println("How many units defend: ");
-                int defender = input.nextInt();
-                input.close();
+                int attacker = game.dice("How many units attack: ");
+                int defender = game.dice("How many units defend: ");
                 Dice startDice = new Dice(attacker, defender);
                 startDice.game();
                 break;
