@@ -21,8 +21,7 @@ public class Main {
                 break;
             case 1:
                 Hangman start = new Hangman();
-                start.getFile();
-                System.out.println(1);
+                System.out.println(start.word);
                 break;
             case 2:
                 System.out.println(2);

@@ -1,53 +1,42 @@
 package com.aka.games;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Scanner;
+import java.io.*;
+import java.net.URL;
+import java.util.*;
 
 public class Hangman {
 
-    String word;
-    ArrayList<String> wordMap;
+    Object word;
 
     public Hangman() {
 
-        getFile();
-        getWord();
-        //this.word = getWord();
+        ArrayList<String> wordList = getFile();
+        this.word = getWord(wordList);
     }
 
-    public void getFile() {
-        int counter = 0;
-        String b = new String();
+    public ArrayList getFile() {
+        ArrayList<String> wordsList = new ArrayList<>();
+
+
+        URL url = getClass().getResource("words.csv");
+        File file = new File(url.getFile());
 
         try {
-
-            Scanner scanner = new Scanner(new File("/home/tanacs/java/aka_aka_games/src/com/aka/games/words.csv"));
-
-            // here comes the iteration
-            
-            System.out.println(b);
-            /*while (scanner.hasNext()) {
-                String a = scanner.nextLine();
-                System.out.println(a);
-                wordMap.add(a);
-            }*/
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                wordsList.add(scanner.next());
+            }
         } catch (FileNotFoundException e) {
-            System.out.println("Damn dude");
+            System.out.println("Meh");
         }
+        return wordsList;
+
     }
 
-    public String getWord(){
+    public Object getWord(ArrayList wordList){
 
         Random random = new Random();
         int randomNr = random.nextInt(35);
-        System.out.println(randomNr);
-        System.out.println(wordMap.get(randomNr));
-        return wordMap.get(randomNr);
+        return wordList.get(randomNr);
     }
 }
