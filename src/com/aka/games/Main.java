@@ -1,13 +1,14 @@
 package com.aka.games;
 
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Main {
 
 
     public static void main(String[] args) {
         String[] gameList = {"Hangman", "Dice for risk", "GTA", "Quit"};
+        //Hangman a = new Hangman();
+        //System.out.println(a.word);
 
         printMain(gameList);
 
