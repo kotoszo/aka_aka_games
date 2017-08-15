@@ -1,5 +1,6 @@
 package com.aka.games;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputHandler {
@@ -37,14 +38,36 @@ public class InputHandler {
     }
 
     public int diceInt(String message) {
-        System.out.print(message);
-        Scanner input = new Scanner(System.in);
-        return input.nextInt();
+        boolean isInt = false;
+        int inputInt = 0;
+        while (!isInt) {
+            System.out.print(message);
+            Scanner input = new Scanner(System.in);
+            try {
+                inputInt = input.nextInt();
+                isInt = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Not a valid number!");
+            }
+        }
+        return inputInt;
     }
 
     public String diceStr(String message) {
-        System.out.print(message);
-        Scanner input = new Scanner(System.in);
-        return input.next();
+        boolean isString = false;
+        int intTemp = 0;
+        String inputStr = "";
+        while (!isString) {
+            System.out.print(message);
+            Scanner input = new Scanner(System.in);
+            try {
+              intTemp = input.nextInt();
+              System.out.println("Not a valid character!");
+            } catch (InputMismatchException e) {
+                inputStr = input.next();
+                isString = true;
+            }
+        }
+        return inputStr;
     }
 }
