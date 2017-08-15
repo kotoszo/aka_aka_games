@@ -7,15 +7,15 @@ import static java.lang.Math.toIntExact;
 
 public class Hangman {
 
-    String word;
-    Character[] hiddenword;
-    Character[][] matrix;
+    private String word;
+    private Character[] hiddenWord;
+    private Character[][] matrix;
 
     public Hangman() {
 
         String[] wordList = getFile();
         this.word = getWord(wordList);
-        this.hiddenword = hideWord(word);
+        this.hiddenWord = hideWord(word);
         this.matrix = death();
     }
 
@@ -129,7 +129,7 @@ public class Hangman {
         while (!isOver) {
             boolean isContain = false;
             printMatrix();
-            System.out.println(Arrays.toString(hiddenword));
+            System.out.println(Arrays.toString(hiddenWord));
             System.out.println("Give me your guess!");
             Scanner hangManInput = new Scanner(System.in);
             char guess = hangManInput.next().charAt(0);
@@ -139,7 +139,7 @@ public class Hangman {
                 if (!usedChars.contains(guess)) {
                     for (int i=0; i < word.length(); i++) {
                         if (word.charAt(i) == guess) {
-                            hiddenword[i] = guess;
+                            hiddenWord[i] = guess;
                             isContain = true;
                             tries++;
                         }
