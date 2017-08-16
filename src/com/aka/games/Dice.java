@@ -4,75 +4,68 @@ import java.util.*;
 
 
 public class Dice {
-        private  List<String> abc = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"));
-        private HashMap<String, Integer> p1Fields = new HashMap<>();
-        private HashMap<String, Integer> p2Fields = new HashMap<>();
-        private int fieldNumber;
-        private int p1Units;
-        private int p2Units;
-        private int attacker;
-        private int defender;
-        private int attackerDices;
-        private int defenderDices;
+        private  List<String> worldMap = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"));
+        private HashMap<String, Integer> playerOneFields = new HashMap<>();
+        private HashMap<String, Integer> playerTwoFields = new HashMap<>();
         private int attackerLoss = 0;
         private int defenderLoss = 0;
         private Random random = new Random();
-        private ArrayList<Integer> attackerDice = new ArrayList<>();
-        private ArrayList<Integer> defenderDice = new ArrayList<>();
+        private ArrayList<Integer> attackerDiceList = new ArrayList<>();
+        private ArrayList<Integer> defenderDiceList = new ArrayList<>();
         private int player = 1;
 
     public Dice() {
     }
 
     public void game() {
-        String attacker;
-        String defender;
+        int attackerUnits;
+        int defenderUnits;
+        int fieldNumber;
+        int totalUnits;
+        int playerOneUnits;
+        int playerTwoUnits;
+        int attackerDices;
+        int defenderDices;
+        String attackerField;
+        String defenderField;
 
         InputHandler dice = new InputHandler();
         fieldNumber = dice.diceInt("How many fields do you have: ");
-        p1Units = dice.diceInt("How many units do you have: ");
-        p2Units = p1Units;
+        totalUnits = dice.diceInt("How many units do you have: ");
+        playerOneUnits = totalUnits;
+        playerTwoUnits = totalUnits;
 
-        p1Fields = initFields(p1Fields, fieldNumber);
-        System.out.println(p1Fields);
-        p2Fields = initFields(p2Fields, fieldNumber);
-        System.out.println(p2Fields);
-        while (p1Units > 0 && p2Units > 0) {
+        playerOneFields = initFields(playerOneFields, fieldNumber);
+        System.out.println(playerOneFields);
+        playerTwoFields = initFields(playerTwoFields, fieldNumber);
+        System.out.println(playerTwoFields);
+        while (playerOneUnits > 0 && playerTwoUnits > 0) {
             if (player == 1) {
                 System.out.println("\nPlayer 1 turn!\n");
-                attacker = dice.diceStr("Attacker field: ").toUpperCase();
-                defender = dice.diceStr("Defender field: ").toUpperCase();
-                int attackUnits = p1Fields.get(attacker);
-                int defendUnits = p2Fields.get(defender);
-                if (attackUnits <= 5) {
-                    attackerDices = 1;
-                } else if (attackUnits <= 10) {
-                    attackerDices = 2;
-                } else {
-                    attackerDices = 3;
-                }
-                if (defendUnits <= 5) {
-                    defenderDices = 1;
-                } else {
-                    defenderDices = 2;
-                }
-                attackerDice = diceList(attackerDices, attackerDice);
-                defenderDice = diceList(defenderDices, defenderDice);
+                attackerField = dice.diceStr("Attacker field: ").toUpperCase();
+                defenderField = dice.diceStr("Defender field: ").toUpperCase();
+                attackerUnits = playerOneFields.get(attackerField);
+                defenderUnits = playerTwoFields.get(defenderField);
+                attackerDices = getDices(attackerUnits, "attackerField");
+                defenderDices = getDices(defenderUnits, "defenderField");
+
+                attackerDiceList = diceList(attackerDices, attackerDiceList);
+                defenderDiceList = diceList(defenderDices, defenderDiceList);
 
                 System.out.println("\nDice:");
                 System.out.print("\tAttacker: ");
-                printResult(attackerDice);
+                printResult(attackerDiceList);
                 System.out.print("\tDefender: ");
-                printResult(defenderDice);
+                printResult(defenderDiceList);
                 System.out.println("\nOutcome: ");
                 countLoss();
                 System.out.printf("\tAttacker: Lost %d unit\n", attackerLoss);
                 System.out.printf("\tDefender: Lost %d unit\n", defenderLoss);
 
-                p1Fields.put(attacker, (p1Fields.get(attacker) - attackerLoss));
-                p1Units -= attackerLoss;
-                p2Fields.put(defender, (p2Fields.get(defender) - defenderLoss));
-                p2Units -= defenderLoss;
+                playerOneFields.put(attackerField, (playerOneFields.get(attackerField) - attackerLoss));
+                playerOneUnits -= attackerLoss;
+                playerTwoFields.put(defenderField, (playerTwoFields.get(defenderField) - defenderLoss));
+                playerTwoUnits -= defenderLoss;
                 attackerLoss = 0;
                 defenderLoss = 0;
 
@@ -80,49 +73,60 @@ public class Dice {
                 player = 2;
             } else {
                 System.out.println("\nPlayer 2 turn!\n");
-                attacker = dice.diceStr("Attacker field: ").toUpperCase();
-                defender = dice.diceStr("Defender field: ").toUpperCase();
-                int attackUnits = p2Fields.get(attacker);
-                int defendUnits = p1Fields.get(defender);
-                if (attackUnits <= 5) {
-                    attackerDices = 1;
-                } else if (attackUnits <= 10) {
-                    attackerDices = 2;
-                } else {
-                    attackerDices = 3;
-                }
-                if (defendUnits <= 5) {
-                    defenderDices = 1;
-                } else {
-                    defenderDices = 2;
-                }
-                attackerDice = diceList(attackerDices, attackerDice);
-                defenderDice = diceList(defenderDices, defenderDice);
+                attackerField = dice.diceStr("Attacker field: ").toUpperCase();
+                defenderField = dice.diceStr("Defender field: ").toUpperCase();
+                attackerUnits = playerTwoFields.get(attackerField);
+                defenderUnits = playerOneFields.get(defenderField);
+                attackerDices = getDices(attackerUnits, "attackerField");
+                defenderDices = getDices(defenderUnits, "defenderField");
+
+                attackerDiceList = diceList(attackerDices, attackerDiceList);
+                defenderDiceList = diceList(defenderDices, defenderDiceList);
 
                 System.out.println("\nDice:");
                 System.out.print("\tAttacker: ");
-                printResult(attackerDice);
+                printResult(attackerDiceList);
                 System.out.print("\tDefender: ");
-                printResult(defenderDice);
+                printResult(defenderDiceList);
                 System.out.println("\nOutcome: ");
                 countLoss();
                 System.out.printf("\tAttacker: Lost %d unit\n", attackerLoss);
                 System.out.printf("\tDefender: Lost %d unit\n", defenderLoss);
 
-                p2Fields.put(attacker, (p2Fields.get(attacker) - attackerLoss));
-                p2Units -= attackerLoss;
-                p1Fields.put(defender, (p1Fields.get(defender) - defenderLoss));
-                p1Units -= defenderLoss;
+                playerTwoFields.put(attackerField, (playerTwoFields.get(attackerField) - attackerLoss));
+                playerTwoUnits -= attackerLoss;
+                playerOneFields.put(defenderField, (playerOneFields.get(defenderField) - defenderLoss));
+                playerOneUnits -= defenderLoss;
                 attackerLoss = 0;
                 defenderLoss = 0;
 
                 player = 1;
             }
             System.out.println("\nPlayer 1 fields:");
-            System.out.println(p1Fields);
+            System.out.println(playerOneFields);
             System.out.println("\nPlayer 2 fields:");
-            System.out.println(p2Fields);
+            System.out.println(playerTwoFields);
         }
+    }
+
+    public int getDices(int units, String role) {
+        int dices;
+        if (role == "attacker") {
+            if (units <= 5) {
+                dices = 1;
+            } else if (units <= 10) {
+                dices = 2;
+            } else {
+                dices = 3;
+            }
+        } else {
+            if (units <= 5) {
+                dices = 1;
+            } else {
+                dices = 2;
+            }
+        }
+        return dices;
     }
 
     public ArrayList diceList (int units, ArrayList diceList) {
@@ -148,14 +152,14 @@ public class Dice {
 
     public void countLoss () {
         int minLength;
-        if (attackerDice.size() < defenderDice.size()) {
-            minLength = attackerDice.size();
+        if (attackerDiceList.size() < defenderDiceList.size()) {
+            minLength = attackerDiceList.size();
         } else {
-            minLength = defenderDice.size();
+            minLength = defenderDiceList.size();
         }
 
         for (int i = 0; i < minLength; i++) {
-            if (attackerDice.get(i) <= defenderDice.get(i)) {
+            if (attackerDiceList.get(i) <= defenderDiceList.get(i)) {
                 attackerLoss += 1;
             } else {
                 defenderLoss += 1;
@@ -166,7 +170,7 @@ public class Dice {
     public HashMap<String, Integer> initFields (HashMap playerMap, int fieldNumber) {
         InputHandler map = new InputHandler();
         for (int i = 0; i < fieldNumber; i++) {
-            playerMap.put((abc.get(i)), map.diceInt(String.format("Number of units on field \"%s\": ", abc.get(i))));
+            playerMap.put((worldMap.get(i)), map.diceInt(String.format("Number of units on field \"%s\": ", worldMap.get(i))));
         }
         return playerMap;
     }
