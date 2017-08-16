@@ -4,54 +4,11 @@ import java.util.*;
 
 public class DiceMap {
 
-    int p1Fields, p1Units, p2Fields, p2Units;
     String[][] matrix;
 
     public DiceMap() {
 
-        this.p1Fields = p1Fields;
-        this.p1Units = p1Units;
-        this.p2Fields = p2Fields;
-        this.p2Units = p2Units;
         this.matrix = initMatrix();
-        /*
-        int[] startSnail = startingPoint("A", 9);
-        snail(startSnail);
-
-        int[] startDog = startingPoint("B", 9);
-        dog(startDog);
-
-        int[] startFish = startingPoint("C", 9);
-        fish(startFish);
-
-        int[] startGhostShark = startingPoint("D", 9);
-        ghostShark(startGhostShark);
-
-        int[] startPig = startingPoint("H", 9);
-        pig(startPig);
-
-        int[] startMan = startingPoint("E", 9);
-        man(startMan);
-
-        int[] startWoman = startingPoint("F", 9);
-        woman(startWoman);
-
-        int[] startChicken = startingPoint("J", 9);
-        chicken(startChicken);
-
-        int[] startWizard = startingPoint("I", 9);
-        wizard(startWizard);
-
-        int[] startRabbit = startingPoint("K", 9);
-        rabbit(startRabbit);
-
-        int[] startGiraffe = startingPoint("G", 9);
-        giraffe(startGiraffe);
-
-        int[] startSnake = startingPoint("L", 9);
-        snake(startSnake);
-
-        drawMatrix();*/
 
     }
 
