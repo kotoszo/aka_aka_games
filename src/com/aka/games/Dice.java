@@ -45,10 +45,10 @@ public class Dice {
 
 
         /* We need to make unit checks!! */
-        System.out.println("Player 1 distribute units for the fields");
+        System.out.println("\nPlayer 1 distribute units for the fields");
         playerOneFields = initFields(playerOneFields, fieldNumber, playerOneUnits);
         System.out.println(playerOneFields);
-        System.out.println("Player 2 distribute units for the fields");
+        System.out.println("\nPlayer 2 distribute units for the fields");
         playerTwoFields = initFields(playerTwoFields, fieldNumber, playerTwoUnits);
         System.out.println(playerTwoFields);
 
@@ -222,12 +222,30 @@ public class Dice {
 
     public HashMap<String, Integer> initFields (HashMap<String, Integer> playerMap, int fieldNumber, int units) {
         InputHandler map = new InputHandler();
+        boolean isValid;
         for (int i = 0; i < fieldNumber; i++) {
-            int usedUnits = map.diceInt(String.format("Number of units on field \"%s\": ", worldMap.get(i)));
-            if (usedUnits > 0) {
-                playerMap.put((worldMap.get(i)), usedUnits);
-                units -= usedUnits;
-                System.out.println(units);
+            if (units == 0) {
+                break;
+            }
+            if (i == fieldNumber-1) {
+                playerMap.put((worldMap.get(i)), units);
+            } else {
+                isValid = false;
+                while (!isValid) {
+                    System.out.printf("\n Units left: %d\n", units);
+                    int usedUnits = map.diceInt(String.format("Number of units on field \"%s\": ", worldMap.get(i)));
+                    if (usedUnits <= units) {
+                        if (usedUnits > 0) {
+                            playerMap.put((worldMap.get(i)), usedUnits);
+                            units -= usedUnits;
+                            isValid = true;
+                        } else {
+                            isValid = true;
+                        }
+                    } else {
+                        System.out.println("\nYou don't have so many units!");
+                    }
+                }
             }
         }
         return playerMap;
