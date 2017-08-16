@@ -20,11 +20,13 @@ public class Dice {
         private String defenderField = "";
         private int attackerUnits =0;
         private int defenderUnits =0;
+        DiceMap draw;
 
     public Dice() {
     }
 
     public void game() {
+        this.draw = new DiceMap();
         int fieldNumber;
         int totalUnits;
         InputHandler dice = new InputHandler();
@@ -45,12 +47,16 @@ public class Dice {
         /* We need to make unit checks!! */
         System.out.println("\n\nPlayer 1 distribute units for the fields");
         playerOneFields = initFields(playerOneFields, fieldNumber, playerOneUnits);
+        draw.manipulateMatrix(playerOneFields, 1);
+
         System.out.println(playerOneFields);
         System.out.println("\n\nPlayer 2 distribute units for the fields");
         playerTwoFields = initFields(playerTwoFields, fieldNumber, playerTwoUnits);
+        draw.manipulateMatrix(playerTwoFields, 2);
         System.out.println(playerTwoFields);
 
         while (playerOneUnits > 0 && playerTwoUnits > 0) {
+            draw.drawMatrix();
             if (player == 1) {
                 playerTurn(1);
                 player = 2;
@@ -116,6 +122,9 @@ public class Dice {
                 playerOneFields.remove(defenderField);
             }
         }
+        draw.matrix = draw.initMatrix();
+        draw.manipulateMatrix(playerOneFields, 1);
+        draw.manipulateMatrix(playerTwoFields, 2);
 
 
 
