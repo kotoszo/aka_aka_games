@@ -5,7 +5,32 @@ import java.util.*;
 
 
 public class Dice {
-        private  List<String> worldMap = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"));
+        private  List<String> worldMap = new ArrayList<>(Arrays.asList(
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H",
+                "I",
+                "J",
+                "K",
+                "L"));
+    private  List<String> warriorMap = new ArrayList<>(Arrays.asList(
+            "Snail",
+            "Dog",
+            "Fish",
+            "GhostShark",
+            "Man",
+            "Woman",
+            "Giraffe",
+            "Pig",
+            "Wizard",
+            "Chicken",
+            "Rabbit",
+            "Snake"));
         private HashMap<String, Integer> playerOneFields = new HashMap<>();
         private HashMap<String, Integer> playerTwoFields = new HashMap<>();
         private int attackerLoss = 0;
@@ -30,7 +55,7 @@ public class Dice {
         int fieldNumber;
         int totalUnits;
         InputHandler dice = new InputHandler();
-        fieldNumber = dice.diceInt("\n\nNumber of fields for each player: ");
+        fieldNumber = dice.diceInt("\n\nNumber of warriors for each player: ");
         if (fieldNumber <= 0) {
             System.out.println("It seems you don't want to play!");
             System.exit(0);
@@ -240,7 +265,7 @@ public class Dice {
                 isValid = false;
                 while (!isValid) {
                     System.out.printf("\nYou have %d units left...\n", units);
-                    int usedUnits = map.diceInt(String.format("Number of units on field \"%s\": ", worldMap.get(i)));
+                    int usedUnits = map.diceInt(String.format("Number of %s units on field \"%s\": ", warriorMap.get(i) ,worldMap.get(i)));
                     if (usedUnits <= units) {
                         if (usedUnits > 0) {
                             playerMap.put((worldMap.get(i)), usedUnits);

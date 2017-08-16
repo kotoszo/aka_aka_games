@@ -1,16 +1,14 @@
 package com.aka.games;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
+import javafx.beans.binding.ObjectExpression;
+
+import java.util.*;
 
 public class Main {
 
 
     public static void main(String[] args) {
         String[] gameList = {"Hangman", "Dice for risk", "GTA"};
-        //Hangman a = new Hangman();
-        //System.out.println(a.word);
 
         printMain(gameList);
         System.out.print("Enter a number to play or '0' to Quit: ");
