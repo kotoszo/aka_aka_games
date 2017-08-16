@@ -12,9 +12,10 @@ public class Main {
         //System.out.println(a.word);
 
         printMain(gameList);
-
+        System.out.print("Enter a number to play or '0' to Quit: ");
         InputHandler game = new InputHandler();
         int option = game.mainMenu(gameList.length);
+
 
         switch (option) {
             case 0:
@@ -49,6 +50,6 @@ public class Main {
         for (int i=1; i <= gameLib.size(); i++) {
             System.out.printf("[%d]     %s\n", i, gameLib.get(i));
         }
-        System.out.printf("\n[%d]     %s\n", 0, "Quit");
+        System.out.printf("\n[%d]     %s\n\n", 0, "Quit");
     }
 }

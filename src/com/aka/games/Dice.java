@@ -1,8 +1,7 @@
 package com.aka.games;
 
-import java.awt.*;
 import java.util.*;
-import java.util.List;
+
 
 
 public class Dice {
@@ -28,14 +27,13 @@ public class Dice {
     public void game() {
         int fieldNumber;
         int totalUnits;
-
         InputHandler dice = new InputHandler();
-        fieldNumber = dice.diceInt("Number of fields for each player: ");
+        fieldNumber = dice.diceInt("\n\nNumber of fields for each player: ");
         if (fieldNumber <= 0) {
             System.out.println("It seems you don't want to play!");
             System.exit(0);
         }
-        totalUnits = dice.diceInt("Total number of units for ech player: ");
+        totalUnits = dice.diceInt("Total number of units for each player: ");
         if (totalUnits < fieldNumber) {
             System.out.println("It seems you don't want to play!");
             System.exit(0);
@@ -45,10 +43,10 @@ public class Dice {
 
 
         /* We need to make unit checks!! */
-        System.out.println("\nPlayer 1 distribute units for the fields");
+        System.out.println("\n\nPlayer 1 distribute units for the fields");
         playerOneFields = initFields(playerOneFields, fieldNumber, playerOneUnits);
         System.out.println(playerOneFields);
-        System.out.println("\nPlayer 2 distribute units for the fields");
+        System.out.println("\n\nPlayer 2 distribute units for the fields");
         playerTwoFields = initFields(playerTwoFields, fieldNumber, playerTwoUnits);
         System.out.println(playerTwoFields);
 
@@ -72,7 +70,7 @@ public class Dice {
         int defenderDices;
 
 
-        System.out.printf("\nPlayer %d turn!\n", player);
+        System.out.printf("\n\nPlayer %d turn!\n", player);
 
 
         if (player == 1) {
@@ -147,11 +145,11 @@ public class Dice {
         return dices;
     }
 
-    public void getValidField (int player) {
+    private void getValidField (int player) {
         boolean isInMap = false;
         InputHandler dice = new InputHandler();
             while (!isInMap) {
-                attackerField = dice.diceStr("Attacker field: ").toUpperCase();
+                attackerField = dice.diceStr("\tAttacker field: ").toUpperCase();
                 try {
                     if (player == 1) {
                         attackerUnits = playerOneFields.get(attackerField);
@@ -165,7 +163,7 @@ public class Dice {
             }
             isInMap = false;
             while (!isInMap) {
-                defenderField = dice.diceStr("Defender field: ").toUpperCase();
+                defenderField = dice.diceStr("\tDefender field: ").toUpperCase();
                 try {
                     if (player == 1) {
                         defenderUnits = playerTwoFields.get(defenderField);
@@ -232,7 +230,7 @@ public class Dice {
             } else {
                 isValid = false;
                 while (!isValid) {
-                    System.out.printf("\n Units left: %d\n", units);
+                    System.out.printf("\nYou have %d units left...\n", units);
                     int usedUnits = map.diceInt(String.format("Number of units on field \"%s\": ", worldMap.get(i)));
                     if (usedUnits <= units) {
                         if (usedUnits > 0) {
