@@ -1,5 +1,6 @@
 package com.aka.games;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -7,7 +8,9 @@ public class Main {
 
 
     public static void main(String[] args) {
-        String[] gameList = {"Hangman", "Dice for risk", "GTA"};
+        DiceMap a = new DiceMap();
+
+        /*String[] gameList = {"Hangman", "Dice for risk", "GTA"};
         //Hangman a = new Hangman();
         //System.out.println(a.word);
 
@@ -23,8 +26,7 @@ public class Main {
                 break;
             case 1:
                 Hangman start = new Hangman();
-                start.getFile();
-                System.out.println(1);
+                start.appRun();
                 break;
             case 2:
                 Dice startDice = new Dice();
@@ -33,7 +35,7 @@ public class Main {
             case 3:
                 System.out.println(3);
                 break;
-        }
+        }*/
 
 
     }
