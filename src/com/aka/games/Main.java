@@ -2,6 +2,7 @@ package com.aka.games;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Main {
 
@@ -25,7 +26,8 @@ public class Main {
                 start.appRun();
                 break;
             case 2:
-                System.out.println(2);
+                Dice startDice = new Dice();
+                startDice.game();
                 break;
             case 3:
                 System.out.println(3);
