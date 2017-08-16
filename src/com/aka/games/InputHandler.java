@@ -45,7 +45,9 @@ public class InputHandler {
             Scanner input = new Scanner(System.in);
             try {
                 inputInt = input.nextInt();
-                isInt = true;
+                if (inputInt >= 0) {
+                    isInt = true;
+                }
             } catch (InputMismatchException e) {
                 System.out.println("Not a valid number!");
             }

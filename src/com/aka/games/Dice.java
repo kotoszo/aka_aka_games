@@ -1,6 +1,8 @@
 package com.aka.games;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 
 public class Dice {
@@ -15,6 +17,10 @@ public class Dice {
         private int player = 1;
         private int playerOneUnits;
         private int playerTwoUnits;
+        private String attackerField = "";
+        private String defenderField = "";
+        private int attackerUnits =0;
+        private int defenderUnits =0;
 
     public Dice() {
     }
@@ -24,17 +30,26 @@ public class Dice {
         int totalUnits;
 
         InputHandler dice = new InputHandler();
-        fieldNumber = dice.diceInt("How many fields do you have: ");
-        totalUnits = dice.diceInt("How many units do you have: ");
+        fieldNumber = dice.diceInt("Number of fields for each player: ");
+        if (fieldNumber <= 0) {
+            System.out.println("It seems you don't want to play!");
+            System.exit(0);
+        }
+        totalUnits = dice.diceInt("Total number of units for ech player: ");
+        if (totalUnits < fieldNumber) {
+            System.out.println("It seems you don't want to play!");
+            System.exit(0);
+        }
         playerOneUnits = totalUnits;
         playerTwoUnits = totalUnits;
 
 
         /* We need to make unit checks!! */
-
-        playerOneFields = initFields(playerOneFields, fieldNumber);
+        System.out.println("Player 1 distribute units for the fields");
+        playerOneFields = initFields(playerOneFields, fieldNumber, playerOneUnits);
         System.out.println(playerOneFields);
-        playerTwoFields = initFields(playerTwoFields, fieldNumber);
+        System.out.println("Player 2 distribute units for the fields");
+        playerTwoFields = initFields(playerTwoFields, fieldNumber, playerTwoUnits);
         System.out.println(playerTwoFields);
 
         while (playerOneUnits > 0 && playerTwoUnits > 0) {
@@ -47,6 +62,7 @@ public class Dice {
                 player = 1;
                 System.out.println(playerOneUnits + playerTwoUnits);
             }
+
         }
         System.out.println("GameOver");
     }
@@ -54,26 +70,22 @@ public class Dice {
     public void playerTurn(int player) {
         int attackerDices;
         int defenderDices;
-        int attackerUnits;
-        int defenderUnits;
-        String attackerField;
-        String defenderField;
-        InputHandler dice = new InputHandler();
+
 
         System.out.printf("\nPlayer %d turn!\n", player);
-        attackerField = dice.diceStr("Attacker field: ").toUpperCase();
-        defenderField = dice.diceStr("Defender field: ").toUpperCase();
+
+
         if (player == 1) {
-            attackerUnits = playerOneFields.get(attackerField);
-            defenderUnits = playerTwoFields.get(defenderField);
+            getValidField(player);
+
         } else {
-            attackerUnits = playerTwoFields.get(attackerField);
-            defenderUnits = playerOneFields.get(defenderField);
+            getValidField(player);
+
         }
         attackerDices = getDices(attackerUnits, "attackerField");
         defenderDices = getDices(defenderUnits, "defenderField");
-        attackerDiceList = diceList(attackerDices, attackerDiceList);
-        defenderDiceList = diceList(defenderDices, defenderDiceList);
+        attackerDiceList = diceList(attackerDices);
+        defenderDiceList = diceList(defenderDices);
         System.out.println("\nDice:");
         System.out.print("\tAttacker: ");
         printResult(attackerDiceList);
@@ -88,12 +100,26 @@ public class Dice {
             playerOneUnits -= attackerLoss;
             playerTwoFields.put(defenderField, (playerTwoFields.get(defenderField) - defenderLoss));
             playerTwoUnits -= defenderLoss;
+            if (playerOneFields.get(attackerField) == 0) {
+                playerOneFields.remove(attackerField);
+            }
+            if (playerTwoFields.get(defenderField) == 0) {
+                playerTwoFields.remove(defenderField);
+            }
         } else {
             playerTwoFields.put(attackerField, (playerTwoFields.get(attackerField) - attackerLoss));
             playerTwoUnits -= attackerLoss;
             playerOneFields.put(defenderField, (playerOneFields.get(defenderField) - defenderLoss));
             playerOneUnits -= defenderLoss;
+            if (playerTwoFields.get(attackerField) == 0) {
+                playerTwoFields.remove(attackerField);
+            }
+            if (playerOneFields.get(defenderField) == 0) {
+                playerOneFields.remove(defenderField);
+            }
         }
+
+
 
         System.out.println("\nPlayer 1 fields:");
         System.out.println(playerOneFields);
@@ -103,7 +129,7 @@ public class Dice {
 
     public int getDices(int units, String role) {
         int dices;
-        if (role == "attacker") {
+        if (role.equals("attackerField")) {
             if (units <= 5) {
                 dices = 1;
             } else if (units <= 10) {
@@ -121,8 +147,41 @@ public class Dice {
         return dices;
     }
 
-    public ArrayList diceList (int units, ArrayList diceList) {
-        diceList.clear();
+    public void getValidField (int player) {
+        boolean isInMap = false;
+        InputHandler dice = new InputHandler();
+            while (!isInMap) {
+                attackerField = dice.diceStr("Attacker field: ").toUpperCase();
+                try {
+                    if (player == 1) {
+                        attackerUnits = playerOneFields.get(attackerField);
+                    } else {
+                        attackerUnits = playerTwoFields.get(attackerField);
+                    }
+                    isInMap = true;
+                } catch (NullPointerException e) {
+                    System.out.println("Not a valid field");
+                }
+            }
+            isInMap = false;
+            while (!isInMap) {
+                defenderField = dice.diceStr("Defender field: ").toUpperCase();
+                try {
+                    if (player == 1) {
+                        defenderUnits = playerTwoFields.get(defenderField);
+                    } else {
+                        defenderUnits = playerOneFields.get(defenderField);
+                    }
+                    isInMap = true;
+                } catch (NullPointerException e) {
+                    System.out.println("Not a valid field");
+                }
+            }
+        }
+
+
+    public ArrayList diceList (int units) {
+        ArrayList<Integer> diceList = new ArrayList<>();
         for (int i=0; i < units; i++) {
             int randomNr = random.nextInt(6) + 1;
             diceList.add(randomNr);
@@ -132,7 +191,7 @@ public class Dice {
         return diceList;
     }
 
-    public void printResult(ArrayList diceList) {
+    public void printResult(ArrayList<Integer> diceList) {
         for (int i = 0; i < diceList.size(); i++) {
             if (i == diceList.size()-1) {
                 System.out.printf("%d\n", diceList.get(i));
@@ -161,10 +220,15 @@ public class Dice {
         }
     }
 
-    public HashMap<String, Integer> initFields (HashMap playerMap, int fieldNumber) {
+    public HashMap<String, Integer> initFields (HashMap<String, Integer> playerMap, int fieldNumber, int units) {
         InputHandler map = new InputHandler();
         for (int i = 0; i < fieldNumber; i++) {
-            playerMap.put((worldMap.get(i)), map.diceInt(String.format("Number of units on field \"%s\": ", worldMap.get(i))));
+            int usedUnits = map.diceInt(String.format("Number of units on field \"%s\": ", worldMap.get(i)));
+            if (usedUnits > 0) {
+                playerMap.put((worldMap.get(i)), usedUnits);
+                units -= usedUnits;
+                System.out.println(units);
+            }
         }
         return playerMap;
     }
