@@ -4,7 +4,7 @@ import java.util.*;
 
 
 public class Dice {
-        private  List<String> worldMap = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"));
+        private  List<String> worldMap = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"));
         private HashMap<String, Integer> playerOneFields = new HashMap<>();
         private HashMap<String, Integer> playerTwoFields = new HashMap<>();
         private int attackerLoss = 0;
@@ -13,21 +13,15 @@ public class Dice {
         private ArrayList<Integer> attackerDiceList = new ArrayList<>();
         private ArrayList<Integer> defenderDiceList = new ArrayList<>();
         private int player = 1;
+        int playerOneUnits;
+        int playerTwoUnits;
 
     public Dice() {
     }
 
     public void game() {
-        int attackerUnits;
-        int defenderUnits;
         int fieldNumber;
         int totalUnits;
-        int playerOneUnits;
-        int playerTwoUnits;
-        int attackerDices;
-        int defenderDices;
-        String attackerField;
-        String defenderField;
 
         InputHandler dice = new InputHandler();
         fieldNumber = dice.diceInt("How many fields do you have: ");
@@ -35,79 +29,84 @@ public class Dice {
         playerOneUnits = totalUnits;
         playerTwoUnits = totalUnits;
 
+
+        /* We need to make unit checks!! */
+
         playerOneFields = initFields(playerOneFields, fieldNumber);
         System.out.println(playerOneFields);
         playerTwoFields = initFields(playerTwoFields, fieldNumber);
         System.out.println(playerTwoFields);
+
         while (playerOneUnits > 0 && playerTwoUnits > 0) {
             if (player == 1) {
-                System.out.println("\nPlayer 1 turn!\n");
-                attackerField = dice.diceStr("Attacker field: ").toUpperCase();
-                defenderField = dice.diceStr("Defender field: ").toUpperCase();
-                attackerUnits = playerOneFields.get(attackerField);
-                defenderUnits = playerTwoFields.get(defenderField);
-                attackerDices = getDices(attackerUnits, "attackerField");
-                defenderDices = getDices(defenderUnits, "defenderField");
-
-                attackerDiceList = diceList(attackerDices, attackerDiceList);
-                defenderDiceList = diceList(defenderDices, defenderDiceList);
-
-                System.out.println("\nDice:");
-                System.out.print("\tAttacker: ");
-                printResult(attackerDiceList);
-                System.out.print("\tDefender: ");
-                printResult(defenderDiceList);
-                System.out.println("\nOutcome: ");
-                countLoss();
-                System.out.printf("\tAttacker: Lost %d unit\n", attackerLoss);
-                System.out.printf("\tDefender: Lost %d unit\n", defenderLoss);
-
-                playerOneFields.put(attackerField, (playerOneFields.get(attackerField) - attackerLoss));
-                playerOneUnits -= attackerLoss;
-                playerTwoFields.put(defenderField, (playerTwoFields.get(defenderField) - defenderLoss));
-                playerTwoUnits -= defenderLoss;
-                attackerLoss = 0;
-                defenderLoss = 0;
-
-
+                playerTurn(1, playerOneUnits, playerTwoUnits);
                 player = 2;
+                System.out.println(playerOneUnits + playerTwoUnits);
             } else {
-                System.out.println("\nPlayer 2 turn!\n");
-                attackerField = dice.diceStr("Attacker field: ").toUpperCase();
-                defenderField = dice.diceStr("Defender field: ").toUpperCase();
-                attackerUnits = playerTwoFields.get(attackerField);
-                defenderUnits = playerOneFields.get(defenderField);
-                attackerDices = getDices(attackerUnits, "attackerField");
-                defenderDices = getDices(defenderUnits, "defenderField");
-
-                attackerDiceList = diceList(attackerDices, attackerDiceList);
-                defenderDiceList = diceList(defenderDices, defenderDiceList);
-
-                System.out.println("\nDice:");
-                System.out.print("\tAttacker: ");
-                printResult(attackerDiceList);
-                System.out.print("\tDefender: ");
-                printResult(defenderDiceList);
-                System.out.println("\nOutcome: ");
-                countLoss();
-                System.out.printf("\tAttacker: Lost %d unit\n", attackerLoss);
-                System.out.printf("\tDefender: Lost %d unit\n", defenderLoss);
-
-                playerTwoFields.put(attackerField, (playerTwoFields.get(attackerField) - attackerLoss));
-                playerTwoUnits -= attackerLoss;
-                playerOneFields.put(defenderField, (playerOneFields.get(defenderField) - defenderLoss));
-                playerOneUnits -= defenderLoss;
-                attackerLoss = 0;
-                defenderLoss = 0;
-
+                playerTurn(2, playerOneUnits, playerOneUnits);
                 player = 1;
+                System.out.println(playerOneUnits + playerTwoUnits);
             }
-            System.out.println("\nPlayer 1 fields:");
-            System.out.println(playerOneFields);
-            System.out.println("\nPlayer 2 fields:");
-            System.out.println(playerTwoFields);
         }
+        System.out.println("GameOver");
     }
+
+    public void playerTurn(int player, int playerOneUnits, int playerTwoUnits) {
+        int attackerDices;
+        int defenderDices;
+        int attackerUnits;
+        int defenderUnits;
+        String attackerField;
+        String defenderField;
+        InputHandler dice = new InputHandler();
+
+        System.out.printf("\nPlayer %d turn!\n", player);
+        attackerField = dice.diceStr("Attacker field: ").toUpperCase();
+        defenderField = dice.diceStr("Defender field: ").toUpperCase();
+        if (player == 1) {
+            attackerUnits = playerOneFields.get(attackerField);
+            defenderUnits = playerTwoFields.get(defenderField);
+        } else {
+            attackerUnits = playerTwoFields.get(attackerField);
+            defenderUnits = playerOneFields.get(defenderField);
+        }
+        attackerDices = getDices(attackerUnits, "attackerField");
+        defenderDices = getDices(defenderUnits, "defenderField");
+        attackerDiceList = diceList(attackerDices, attackerDiceList);
+        defenderDiceList = diceList(defenderDices, defenderDiceList);
+        System.out.println("\nDice:");
+        System.out.print("\tAttacker: ");
+        printResult(attackerDiceList);
+        System.out.print("\tDefender: ");
+        printResult(defenderDiceList);
+        System.out.println("\nOutcome: ");
+        countLoss();
+        System.out.printf("\tAttacker: Lost %d unit\n", attackerLoss);
+        System.out.printf("\tDefender: Lost %d unit\n", defenderLoss);
+        if (player == 1) {
+            returnLoss()
+            playerOneFields.put(attackerField, (playerOneFields.get(attackerField) - attackerLoss));
+            playerOneUnits -= attackerLoss;
+            playerTwoFields.put(defenderField, (playerTwoFields.get(defenderField) - defenderLoss));
+            playerTwoUnits -= defenderLoss;
+        } else {
+            playerTwoFields.put(attackerField, (playerTwoFields.get(attackerField) - attackerLoss));
+            playerTwoUnits -= attackerLoss;
+            playerOneFields.put(defenderField, (playerOneFields.get(defenderField) - defenderLoss));
+            playerOneUnits -= defenderLoss;
+        }
+        attackerLoss = 0;
+        defenderLoss = 0;
+        System.out.println("\nPlayer 1 fields:");
+        System.out.println(playerOneFields);
+        System.out.println("\nPlayer 2 fields:");
+        System.out.println(playerTwoFields);
+    }
+
+    public int returnLoss(int units) {
+
+    }
+
 
     public int getDices(int units, String role) {
         int dices;
