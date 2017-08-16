@@ -41,13 +41,15 @@ public class InputHandler {
         boolean isInt = false;
         int inputInt = 0;
         while (!isInt) {
-            System.out.print(message);
-            Scanner input = new Scanner(System.in);
+            System.out.printf(message);
             try {
+                Scanner input = new Scanner(System.in);
                 inputInt = input.nextInt();
-                isInt = true;
+                if (inputInt >= 0) {
+                    isInt = true;
+                }
             } catch (InputMismatchException e) {
-                System.out.println("Not a valid number!");
+                System.out.println("\n\tNot a valid number!");
             }
         }
         return inputInt;
@@ -62,7 +64,7 @@ public class InputHandler {
             Scanner input = new Scanner(System.in);
             try {
               intTemp = input.nextInt();
-              System.out.println("Not a valid character!");
+              System.out.println("\n\tNot a valid character!");
             } catch (InputMismatchException e) {
                 inputStr = input.next();
                 isString = true;

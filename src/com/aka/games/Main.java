@@ -1,23 +1,20 @@
 package com.aka.games;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
+import javafx.beans.binding.ObjectExpression;
+
+import java.util.*;
 
 public class Main {
 
 
     public static void main(String[] args) {
-        DiceMap a = new DiceMap();
-
-        /*String[] gameList = {"Hangman", "Dice for risk", "GTA"};
-        //Hangman a = new Hangman();
-        //System.out.println(a.word);
+        String[] gameList = {"Hangman", "Dice for risk", "GTA"};
 
         printMain(gameList);
-
+        System.out.print("Enter a number to play or '0' to Quit: ");
         InputHandler game = new InputHandler();
         int option = game.mainMenu(gameList.length);
+
 
         switch (option) {
             case 0:
@@ -34,7 +31,7 @@ public class Main {
             case 3:
                 System.out.println(3);
                 break;
-        }*/
+        }
 
 
     }
@@ -51,6 +48,6 @@ public class Main {
         for (int i=1; i <= gameLib.size(); i++) {
             System.out.printf("[%d]     %s\n", i, gameLib.get(i));
         }
-        System.out.printf("\n[%d]     %s\n", 0, "Quit");
+        System.out.printf("\n[%d]     %s\n\n", 0, "Quit");
     }
 }
