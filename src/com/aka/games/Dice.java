@@ -13,8 +13,8 @@ public class Dice {
         private ArrayList<Integer> attackerDiceList = new ArrayList<>();
         private ArrayList<Integer> defenderDiceList = new ArrayList<>();
         private int player = 1;
-        int playerOneUnits;
-        int playerTwoUnits;
+        private int playerOneUnits;
+        private int playerTwoUnits;
 
     public Dice() {
     }
@@ -39,11 +39,11 @@ public class Dice {
 
         while (playerOneUnits > 0 && playerTwoUnits > 0) {
             if (player == 1) {
-                playerTurn(1, playerOneUnits, playerTwoUnits);
+                playerTurn(1);
                 player = 2;
                 System.out.println(playerOneUnits + playerTwoUnits);
             } else {
-                playerTurn(2, playerOneUnits, playerOneUnits);
+                playerTurn(2);
                 player = 1;
                 System.out.println(playerOneUnits + playerTwoUnits);
             }
@@ -51,7 +51,7 @@ public class Dice {
         System.out.println("GameOver");
     }
 
-    public void playerTurn(int player, int playerOneUnits, int playerTwoUnits) {
+    public void playerTurn(int player) {
         int attackerDices;
         int defenderDices;
         int attackerUnits;
@@ -84,7 +84,6 @@ public class Dice {
         System.out.printf("\tAttacker: Lost %d unit\n", attackerLoss);
         System.out.printf("\tDefender: Lost %d unit\n", defenderLoss);
         if (player == 1) {
-            returnLoss()
             playerOneFields.put(attackerField, (playerOneFields.get(attackerField) - attackerLoss));
             playerOneUnits -= attackerLoss;
             playerTwoFields.put(defenderField, (playerTwoFields.get(defenderField) - defenderLoss));
@@ -95,18 +94,12 @@ public class Dice {
             playerOneFields.put(defenderField, (playerOneFields.get(defenderField) - defenderLoss));
             playerOneUnits -= defenderLoss;
         }
-        attackerLoss = 0;
-        defenderLoss = 0;
+
         System.out.println("\nPlayer 1 fields:");
         System.out.println(playerOneFields);
         System.out.println("\nPlayer 2 fields:");
         System.out.println(playerTwoFields);
     }
-
-    public int returnLoss(int units) {
-
-    }
-
 
     public int getDices(int units, String role) {
         int dices;
@@ -150,6 +143,8 @@ public class Dice {
     }
 
     public void countLoss () {
+        attackerLoss = 0;
+        defenderLoss = 0;
         int minLength;
         if (attackerDiceList.size() < defenderDiceList.size()) {
             minLength = attackerDiceList.size();
