@@ -135,7 +135,7 @@ public class Hangman {
             char guess = hangManInput.next().charAt(0);
             if (Character.isDigit(guess)) {
                 System.out.println("Digit? What were you thinking?");
-            } else {
+            } else if (Character.isAlphabetic(guess)){
                 if (!usedChars.contains(guess)) {
                     for (int i=0; i < word.length(); i++) {
                         if (word.charAt(i) == guess) {
