@@ -19,7 +19,7 @@ public class DiceMap {
         this.matrix = initMatrix();
         String a = "A";
         int[] start = startingPoint(a);
-        snail(start);
+        giraffe(start);
         drawMatrix();
 
     }
@@ -48,7 +48,7 @@ public class DiceMap {
         switch (fieldName){
             case "A":
                 startingCoordinates[0] = 1;
-                startingCoordinates[1] = 4;
+                startingCoordinates[1] = 5;
                 break;
             case "B":
                 break;
@@ -91,5 +91,160 @@ public class DiceMap {
         matrix[y-1][x+8] = '/';
         matrix[y-2][x+8] = '@';
         matrix[y-2][x+9] = '@';
+    }
+
+    private void chicken(int[] startingCoordinates){
+        int y = startingCoordinates[0]+3;
+        int x = startingCoordinates[1];
+        matrix[y][x+1] = '/';
+        matrix[y][x+2] = '\\';
+        matrix[y-1][x] = '(';
+        matrix[y-1][x+3] = ')';
+        matrix[y-2][x+2] = '|';
+        matrix[y-3][x+1] = '(';
+        matrix[y-3][x+3] = ')';
+        matrix[y-3][x+4] = '>';
+        matrix[y-4][x+2] = '_';
+    }
+
+    private void wizard(int[] startingCoordinates){
+        int y = startingCoordinates[0]+3;
+        int x = startingCoordinates[1];
+        matrix[y][x+1] = '/';
+        matrix[y][x+2] = '\\';
+        matrix[y][x+4] = '|';
+        matrix[y-1][x+1] = '[';
+        matrix[y-1][x+2] = ']';
+        matrix[y-1][x+3] = '/';
+        matrix[y-1][x+4] = '|';
+        matrix[y-2][x+1] = 'O';
+        matrix[y-2][x+2] = 'O';
+        matrix[y-2][x+4] = '|';
+        matrix[y-3][x+1] = '/';
+        matrix[y-3][x+2] = '\\';
+    }
+
+    private void rabbit(int[] startingCoordinates){
+        int y = startingCoordinates[0]+3;
+        int x = startingCoordinates[1];
+        matrix[y][x+1] = 'o';
+        matrix[y][x+2] = '_';
+        matrix[y][x+3] = '(';
+        matrix[y][x+4] = '"';
+        matrix[y][x+5] = ')';
+        matrix[y][x+6] = '(';
+        matrix[y][x+7] = '"';
+        matrix[y][x+8] = ')';
+        matrix[y-1][x+1] = '(';
+        matrix[y-1][x+2] = '-';
+        matrix[y-1][x+3] = '.';
+        matrix[y-1][x+4] = '-';
+        matrix[y-1][x+5] = ')';
+        matrix[y-2][x+1] = '(';
+        matrix[y-2][x+2] = '\\';
+        matrix[y-2][x+3] = '(';
+        matrix[y-2][x+4] = '\\';
+    }
+
+    private void pig(int[] startingCoordinates){
+        int y = startingCoordinates[0]+3;
+        int x = startingCoordinates[0];
+        matrix[y][x+2] = '/';
+        matrix[y][x+3] = '\\';
+        matrix[y][x+4] = '/';
+        matrix[y][x+5] = '\\';
+        matrix[y-1][x+1] = '@';
+        matrix[y-1][x+2] = '\\';
+        matrix[y-1][x+3] = '_';
+        matrix[y-1][x+5] = '/';
+        matrix[y-1][x+6] = '\\';
+        matrix[y-1][x+7] = '_';
+        matrix[y-1][x+8] = 'u';
+        matrix[y-1][x+9] = '/';
+        matrix[y-2][x+2] = '/';
+        matrix[y-2][x+5] = '\\';
+        matrix[y-2][x+6] = '/';
+        matrix[y-2][x+7] = 'ʌ';
+        matrix[y-2][x+8] = 'ʌ';
+        matrix[y-2][x+9] = '\\';
+        matrix[y-3][x+3] = '_';
+        matrix[y-3][x+4] = '_';
+        matrix[y-3][x+7] = '_';
+        matrix[y-3][x+8] = '_';
+
+    }
+
+
+    private void man(int[] startingCoordinates){
+        int y = startingCoordinates[0]+3;
+        int x = startingCoordinates[1];
+        matrix[y][x+1] = '/';
+        matrix[y][x+3] = '\\';
+        matrix[y-1][x+2] = '|';
+        matrix[y-2][x+1] = '\\';
+        matrix[y-2][x+2] = 'O';
+        matrix[y-2][x+3] = '/';
+
+    }
+
+    private void woman(int[] startingCoordinates){
+        int y = startingCoordinates[0]+3;
+        int x = startingCoordinates[1];
+        matrix[y][x+1] = '/';
+        matrix[y][x+2] = '_';
+        matrix[y][x+3] = '\\';
+        matrix[y-1][x+2] = '|';
+        matrix[y-2][x+1] = '\\';
+        matrix[y-2][x+2] = 'O';
+        matrix[y-2][x+3] = '/';
+
+    }
+
+    private void snake(int[] startingCoordinates) {
+        int y = startingCoordinates[0] + 3;
+        int x = startingCoordinates[0];
+        matrix[y][x+1] = '\\';
+        matrix[y][x+2] = '/';
+        matrix[y][x+4] = '\\';
+        matrix[y][x+5] = '_';
+        matrix[y][x+6] = '/';
+        matrix[y][x+8] = '\\';
+        matrix[y][x+9] = '_';
+        matrix[y][x+10] = '_';
+        matrix[y][x+11] = '/';
+        matrix[y-1][x] = '\\';
+        matrix[y-1][x+3] = '_';
+        matrix[y-1][x+7] = '_';
+        matrix[y-1][x+8] = '/';
+        matrix[y-1][x+9] = 'u';
+        matrix[y-1][x+10] = 'u';
+        matrix[y-1][x+11] = '\\';
+        matrix[y-2][x+9] = '_';
+        matrix[y-2][x+10] = '_';
+
+    }
+
+    private void giraffe(int[] startingCoordinates) {
+        int y = startingCoordinates[0] + 5;
+        int x = startingCoordinates[0];
+        matrix[y][x] = '/';
+        matrix[y][x+1] = '\\';
+        matrix[y][x+2] = '/';
+        matrix[y][x+3] = '\\';
+        matrix[y-1][x] = '\\';
+        matrix[y-1][x+1] = '_';
+        matrix[y-1][x+2] = '_';
+        matrix[y-1][x+3] = '/';
+        matrix[y-2][x+4] = '/';
+        matrix[y-3][x+4] = '\\';
+        matrix[y-3][x+5] = '_';
+        matrix[y-3][x+6] = '_';
+        matrix[y-3][x+7] = '/';
+        matrix[y-4][x+4] = '/';
+        matrix[y-4][x+5] = 'ʌ';
+        matrix[y-4][x+6] = 'ʌ';
+        matrix[y-4][x+7] = '\\';
+        matrix[y-5][x+5] = '_';
+        matrix[y-5][x+6] = '_';
     }
 }

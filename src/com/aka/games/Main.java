@@ -8,7 +8,9 @@ public class Main {
 
 
     public static void main(String[] args) {
-        String[] gameList = {"Hangman", "Dice for risk", "GTA"};
+        DiceMap a = new DiceMap();
+
+        /*String[] gameList = {"Hangman", "Dice for risk", "GTA"};
         //Hangman a = new Hangman();
         //System.out.println(a.word);
 
@@ -32,7 +34,7 @@ public class Main {
             case 3:
                 System.out.println(3);
                 break;
-        }
+        }*/
 
 
     }
