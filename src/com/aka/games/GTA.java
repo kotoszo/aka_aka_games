@@ -6,6 +6,8 @@ public class GTA extends JFrame{
     private ImageIcon image;
     private JLabel label;
     public void image(){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         setLayout(new FlowLayout());
         image = new ImageIcon(getClass().getResource("Busted.jpg"));
         label = new JLabel(image);

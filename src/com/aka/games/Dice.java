@@ -84,8 +84,6 @@ public class Dice {
 
         // Running the game.
         while (playerOneUnits > 0 && playerTwoUnits > 0) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
             draw.drawMatrix();
             if (player == 1) {
                 playerTurn(1);
@@ -121,6 +119,9 @@ public class Dice {
         // Makes a list from the dices.
         attackerDiceList = diceList(attackerDices);
         defenderDiceList = diceList(defenderDices);
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
 
         // Prints out the result.
         System.out.println("\nDice:");
