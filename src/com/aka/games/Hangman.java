@@ -132,7 +132,8 @@ public class Hangman {
             System.out.print("\033[H\033[2J");
             System.out.flush();
             printMatrix();
-            System.out.println(Arrays.toString(hiddenWord));
+            System.out.println("\n"+Arrays.toString(hiddenWord)+"\n");
+            System.out.println("Your already used characters: " + usedWrongChars);
             System.out.println("Give me your guess!");
             Scanner hangManInput = new Scanner(System.in);
             char guess = hangManInput.next().charAt(0);
@@ -155,7 +156,6 @@ public class Hangman {
                     }
                 }
             }
-            System.out.println("Your already used characters: " + usedWrongChars);
             if (mistakes == 10 || usedCorrectChars.size() == word.length()) {
                 isOver = true;
                 if (mistakes == 10) {
@@ -175,10 +175,12 @@ public class Hangman {
         printMatrix();
         switch (winLose){
             case 1:
-                System.out.println("You won! Huuu!");
+                System.out.println("\nYou won! Huuu!\n");
+                break;
             case 2:
-                System.out.println("GAME OVER!");
+                System.out.println("\nGAME OVER!\n");
+                break;
         }
-        System.out.println("The word was: " + word);
+        System.out.println("The word was: " + word + "\n");
     }
 }

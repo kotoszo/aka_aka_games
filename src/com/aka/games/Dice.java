@@ -51,6 +51,8 @@ public class Dice {
     }
 
     public void game() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         this.dice = new InputHandler();
         this.draw = new DiceMap();
         int fieldNumber;
@@ -82,6 +84,8 @@ public class Dice {
 
         // Running the game.
         while (playerOneUnits > 0 && playerTwoUnits > 0) {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
             draw.drawMatrix();
             if (player == 1) {
                 playerTurn(1);
@@ -91,8 +95,10 @@ public class Dice {
                 player = 1;
             }
         }
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         draw.drawMatrix();
-        System.out.println("GameOver");
+        System.out.println("GameOver\n\n\n");
     }
 
     private void playerTurn(int player) {
