@@ -8,32 +8,34 @@ public class Main {
 
 
     public static void main(String[] args) {
-        String[] gameList = {"Hangman", "Dice for risk", "GTA"};
+        boolean isEnough = false;
+        while (!isEnough){
 
-        printMain(gameList);
-        System.out.print("Enter a number to play or '0' to Quit: ");
-        InputHandler game = new InputHandler();
-        int option = game.mainMenu(gameList.length);
+            String[] gameList = {"Hangman", "Dice for risk", "GTA"};
 
+            printMain(gameList);
+            System.out.print("Enter a number to play or '0' to Quit: ");
+            InputHandler game = new InputHandler();
+            int option = game.mainMenu(gameList.length);
 
-        switch (option) {
-            case 0:
-                System.exit(0);
-                break;
-            case 1:
-                Hangman start = new Hangman();
-                start.appRun();
-                break;
-            case 2:
-                Dice startDice = new Dice();
-                startDice.game();
-                break;
-            case 3:
-                System.out.println(3);
-                break;
+            switch (option) {
+                case 0:
+                    System.exit(0);
+                    isEnough = true;
+                    break;
+                case 1:
+                    Hangman start = new Hangman();
+                    start.appRun();
+                    break;
+                case 2:
+                    Dice startDice = new Dice();
+                    startDice.game();
+                    break;
+                case 3:
+                    System.out.println(3);
+                    break;
+            }
         }
-
-
     }
 
     private static void printMain(String[] gameList) {

@@ -1,9 +1,7 @@
 package com.aka.games;
 
 import java.io.*;
-import java.net.URL;
 import java.util.*;
-import static java.lang.Math.toIntExact;
 
 public class Hangman {
 
@@ -21,20 +19,22 @@ public class Hangman {
 
     private String[] getFile() {
 
-        URL url = getClass().getResource("words.csv");
-        File file = new File(url.getPath());
-        int fileLength = toIntExact(file.length());
-
-        int index = 0;
-        String[] wordsList = new String[fileLength];
-
+        String[] wordsList = new String[36];
+        int counter = 0;
+        InputStream fileStream = getClass().getResourceAsStream("words.csv");
+        BufferedReader fileBuffered = new BufferedReader(new InputStreamReader(fileStream));
         try {
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNext()) {
-                wordsList[index++] = scanner.next();
+            boolean isEnd = false;
+            while (!isEnd) {
+
+                wordsList[counter] = fileBuffered.readLine();
+                if (wordsList[counter] == null){
+                    isEnd = true;
+                }
+                counter++;
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("Sorry, I couldn't find the file.");
+        } catch (IOException e) {
+            System.out.println("Cant read the file");
         }
         return wordsList;
 
@@ -125,9 +125,12 @@ public class Hangman {
         int mistakes = 0;
         int tries = 0;
         int winLose = 0;
-        ArrayList<Character> usedChars = new ArrayList<>();
+        ArrayList<Character> usedWrongChars = new ArrayList<>();
+        ArrayList<Character> usedCorrectChars = new ArrayList<>();
         while (!isOver) {
             boolean isContain = false;
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
             printMatrix();
             System.out.println(Arrays.toString(hiddenWord));
             System.out.println("Give me your guess!");
@@ -136,24 +139,24 @@ public class Hangman {
             if (Character.isDigit(guess)) {
                 System.out.println("Digit? What were you thinking?");
             } else if (Character.isAlphabetic(guess)){
-                if (!usedChars.contains(guess)) {
+                if (!usedWrongChars.contains(guess) && !usedCorrectChars.contains(guess)) {
                     for (int i=0; i < word.length(); i++) {
                         if (word.charAt(i) == guess) {
                             hiddenWord[i] = guess;
                             isContain = true;
-                            tries++;
+                            usedCorrectChars.add(guess);
                         }
                     }
                     if (!isContain) {
-                        usedChars.add(guess);
+                        usedWrongChars.add(guess);
                         isContain = false;
                         mistakes++;
                         wayToHell(mistakes);
                     }
                 }
             }
-            System.out.println("Your already used characters: " + usedChars);
-            if (mistakes == 10 || tries == word.length()) {
+            System.out.println("Your already used characters: " + usedWrongChars);
+            if (mistakes == 10 || usedCorrectChars.size() == word.length()) {
                 isOver = true;
                 if (mistakes == 10) {
                     winLose = 2;
@@ -167,6 +170,8 @@ public class Hangman {
     }
 
     private void gameOver(int winLose){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         printMatrix();
         switch (winLose){
             case 1:
