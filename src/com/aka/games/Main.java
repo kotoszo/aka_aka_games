@@ -2,6 +2,7 @@ package com.aka.games;
 
 import javafx.beans.binding.ObjectExpression;
 
+import javax.swing.*;
 import java.util.*;
 
 public class Main {
@@ -18,23 +19,26 @@ public class Main {
             InputHandler game = new InputHandler();
             int option = game.mainMenu(gameList.length);
 
-            switch (option) {
-                case 0:
-                    System.exit(0);
-                    isEnough = true;
-                    break;
-                case 1:
-                    Hangman start = new Hangman();
-                    start.appRun();
-                    break;
-                case 2:
-                    Dice startDice = new Dice();
-                    startDice.game();
-                    break;
-                case 3:
-                    System.out.println(3);
-                    break;
-            }
+        switch (option) {
+            case 0:
+                System.exit(0);
+                break;
+            case 1:
+                Hangman start = new Hangman();
+                start.appRun();
+                break;
+            case 2:
+                Dice startDice = new Dice();
+                startDice.game();
+                break;
+            case 3:
+                GTA GTAStart = new GTA();
+                GTAStart.image();
+                GTAStart.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                GTAStart.setVisible(true);
+                GTAStart.pack();
+                GTAStart.setTitle("BUSTED!");
+                break;
         }
     }
 
