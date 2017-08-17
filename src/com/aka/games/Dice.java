@@ -91,8 +91,8 @@ public class Dice {
                 playerTurn(2);
                 player = 1;
             }
-
         }
+        draw.drawMatrix();
         System.out.println("GameOver");
     }
 
@@ -130,36 +130,34 @@ public class Dice {
         System.out.printf("\tAttacker: Lost %d unit\n", attackerLoss);
         System.out.printf("\tDefender: Lost %d unit\n", defenderLoss);
 
+        // Changes the units amount on the specific field, ant counts the total army.
         if (player == 1) {
-            playerOneFields.put(attackerField, (playerOneFields.get(attackerField) - attackerLoss));
+            changeFieldValues(playerOneFields, playerTwoFields);
             playerOneUnits -= attackerLoss;
-            playerTwoFields.put(defenderField, (playerTwoFields.get(defenderField) - defenderLoss));
             playerTwoUnits -= defenderLoss;
-            if (playerOneFields.get(attackerField) == 0) {
-                playerOneFields.remove(attackerField);
-            }
-            if (playerTwoFields.get(defenderField) == 0) {
-                playerTwoFields.remove(defenderField);
-            }
         } else {
-            playerTwoFields.put(attackerField, (playerTwoFields.get(attackerField) - attackerLoss));
+            changeFieldValues(playerTwoFields, playerOneFields);
             playerTwoUnits -= attackerLoss;
-            playerOneFields.put(defenderField, (playerOneFields.get(defenderField) - defenderLoss));
             playerOneUnits -= defenderLoss;
-            if (playerTwoFields.get(attackerField) == 0) {
-                playerTwoFields.remove(attackerField);
-            }
-            if (playerOneFields.get(defenderField) == 0) {
-                playerOneFields.remove(defenderField);
-            }
         }
 
-        // TODO: Valami okosat írjunk ide...
+        // Draws the map and units to the console.
         draw.matrix = draw.initMatrix();
         draw.manipulateMatrix(playerOneFields, 1);
         draw.manipulateMatrix(playerTwoFields, 2);
+    }
 
-        System.out.printf("\nPlayer 1 fields: %s\nPlayer 2 fields %s\n", playerOneFields, playerTwoFields);
+    private void changeFieldValues (HashMap<String, Integer> attackersFields, HashMap<String, Integer> defendersFields) {
+        /*
+        Changes the units amount on the specific field and removes it if the total amount is zero.
+         */
+        attackersFields.put(attackerField, (attackersFields.get(attackerField) - attackerLoss));
+        defendersFields.put(defenderField, (defendersFields.get(defenderField) - defenderLoss));
+        if (attackersFields.get(attackerField) == 0) {
+            attackersFields.remove(attackerField);
+        } else if (defendersFields.get(defenderField) == 0) {
+            defendersFields.remove(defenderField);
+        }
     }
     
     private int getDices(int units, String role) {
