@@ -13,6 +13,7 @@ public class DiceMap {
     }
 
     public String[][] initMatrix() {
+        // Initialize an empty Matrix
         String[][] matrix= new String[20][144];
         String player = "Player";
         for (int y = 0; y < 20; y++) {
@@ -27,7 +28,7 @@ public class DiceMap {
             playerCount += 10;
         }
         matrix[3][7] = "1";
-        matrix[10][7] = "2";
+        matrix[14][7] = "2";
         matrix[10][0] = "F";
         matrix[10][1] = "i";
         matrix[10][2] = "e";
@@ -41,6 +42,7 @@ public class DiceMap {
     }
     
     public void drawMatrix(){
+        // Prints out the Matrix
         for (int x=0; x < 20; x++) {
             for (int y=0; y < 144; y++) {
                 System.out.print(matrix[x][y]);
@@ -51,13 +53,14 @@ public class DiceMap {
     }
 
     public void manipulateMatrix(HashMap<String, Integer> playerMap, int playerNr){
+        // Manipulates the for each player
         for (HashMap.Entry<String, Integer> entry: playerMap.entrySet()){
             startingPoint(entry.getKey(), entry.getValue(), playerNr);
-            System.out.println(entry.getKey()+" "+ entry.getValue());
         }
     }
 
     private int[] startingPoint(String fieldName, int unitNumber, int playerNr) {
+        // Returns the starting coordinates for each warrior (aka field)
         int[] startingCoordinates = new int[3];
         int y = 0;
         switch (playerNr){
@@ -159,6 +162,7 @@ public class DiceMap {
     }
 
     private void snail(int[] startingCoordinates){
+        // The snail's coordinates
         int y = startingCoordinates[0];
         int x = startingCoordinates[1];
         int health = startingCoordinates[2];
@@ -181,6 +185,7 @@ public class DiceMap {
     }
 
     private void chicken(int[] startingCoordinates){
+        // The chicken's coordinates
         int y = startingCoordinates[0];
         int x = startingCoordinates[1];
         int health = startingCoordinates[2];
@@ -198,6 +203,7 @@ public class DiceMap {
     }
 
     private void wizard(int[] startingCoordinates){
+        // The wizard coordinates
         int y = startingCoordinates[0];
         int x = startingCoordinates[1];
         int health = startingCoordinates[2];
@@ -218,6 +224,7 @@ public class DiceMap {
     }
 
     private void rabbit(int[] startingCoordinates){
+        // The rabbit's coordinates
         int y = startingCoordinates[0];
         int x = startingCoordinates[1];
         int health = startingCoordinates[2];
@@ -243,6 +250,7 @@ public class DiceMap {
     }
 
     private void pig(int[] startingCoordinates){
+        // The pig's coordinates
         int y = startingCoordinates[0];
         int x = startingCoordinates[1];
         int health = startingCoordinates[2];
@@ -275,6 +283,7 @@ public class DiceMap {
 
 
     private void man(int[] startingCoordinates){
+        // The man's coordinates
         int y = startingCoordinates[0];
         int x = startingCoordinates[1];
         int health = startingCoordinates[2];
@@ -290,6 +299,7 @@ public class DiceMap {
     }
 
     private void woman(int[] startingCoordinates){
+        // The woman's coordinates
         int y = startingCoordinates[0]+3;
         int x = startingCoordinates[1];
         int health = startingCoordinates[2];
@@ -306,6 +316,7 @@ public class DiceMap {
     }
 
     private void snake(int[] startingCoordinates) {
+        // The snake's coordinates
         int y = startingCoordinates[0];
         int x = startingCoordinates[1];
         int health = startingCoordinates[2];
@@ -333,6 +344,7 @@ public class DiceMap {
     }
 
     private void giraffe(int[] startingCoordinates) {
+        // The giraffe's coordinates
         int y = startingCoordinates[0];
         int x = startingCoordinates[1];
         int health = startingCoordinates[2];
@@ -360,6 +372,7 @@ public class DiceMap {
     }
 
     private void dog(int[] startingCoordinates){
+        // The dog's coordinates
         int y = startingCoordinates[0];
         int x = startingCoordinates[1];
         int health = startingCoordinates[2];
@@ -385,6 +398,7 @@ public class DiceMap {
     }
 
     private void fish(int [] startingCoordinates){
+        // The fish's coordinates
         int y = startingCoordinates[0];
         int x = startingCoordinates[1];
         int health = startingCoordinates[2];
@@ -411,6 +425,7 @@ public class DiceMap {
     }
 
     private void ghostShark(int[] startingCoordinates){
+        // The ghostshark's coordinates
         int y = startingCoordinates[0];
         int x = startingCoordinates[1];
         int health = startingCoordinates[2];
