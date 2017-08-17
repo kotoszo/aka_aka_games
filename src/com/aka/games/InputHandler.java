@@ -56,20 +56,8 @@ public class InputHandler {
     }
 
     public String diceStr(String message) {
-        boolean isString = false;
-        int intTemp = 0;
-        String inputStr = "";
-        while (!isString) {
-            System.out.print(message);
-            Scanner input = new Scanner(System.in);
-            try {
-              intTemp = input.nextInt();
-              System.out.println("\n\tNot a valid character!");
-            } catch (InputMismatchException e) {
-                inputStr = input.next();
-                isString = true;
-            }
-        }
-        return inputStr;
+        System.out.print(message);
+        Scanner input = new Scanner(System.in);
+        return input.next();
     }
 }
