@@ -45,12 +45,13 @@ public class Dice {
     private int attackerUnits =0;
     private int defenderUnits =0;
     private DiceMap draw;
+    private InputHandler dice;
 
     public Dice() {
     }
 
     public void game() {
-        InputHandler dice = new InputHandler();
+        this.dice = new InputHandler();
         this.draw = new DiceMap();
         int fieldNumber;
         int totalUnits;
@@ -74,12 +75,10 @@ public class Dice {
         playerOneFields = initFields(playerOneFields, fieldNumber, playerOneUnits);
         draw.manipulateMatrix(playerOneFields, 1);
 
-        System.out.println(playerOneFields);
-
         System.out.print("\nPlayer 2 distribute units for the fields\n");
         playerTwoFields = initFields(playerTwoFields, fieldNumber, playerTwoUnits);
         draw.manipulateMatrix(playerTwoFields, 2);
-        System.out.println(playerTwoFields);
+
 
         // Running the game.
         while (playerOneUnits > 0 && playerTwoUnits > 0) {
@@ -177,7 +176,6 @@ public class Dice {
         /*
         Asking the attacker field and the defender field from the attacking player.
          */
-        InputHandler dice = new InputHandler();
         boolean isInMap = false;
         while (!isInMap) {
             attackerField = dice.diceStr("\tAttacker field: ").toUpperCase();
@@ -252,7 +250,6 @@ public class Dice {
         /*
         Fills out the field with units.
          */
-        InputHandler map = new InputHandler();
         boolean isValid;
         for (int i = 0; i < fieldNumber; i++) {
             if (units == 0) {
@@ -263,7 +260,7 @@ public class Dice {
                 isValid = false;
                 while (!isValid) {
                     System.out.printf("\nYou have %d units left...\n", units);
-                    int usedUnits = map.diceInt(String.format("Number of %s units on field \"%s\": ", warriorMap.get(i) ,worldMap.get(i)));
+                    int usedUnits = dice.diceInt(String.format("Number of %s units on field \"%s\": ", warriorMap.get(i) ,worldMap.get(i)));
                     if (usedUnits <= units && usedUnits > 0) {
                         playerMap.put((worldMap.get(i)), usedUnits);
                         units -= usedUnits;
