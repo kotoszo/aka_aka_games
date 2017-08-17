@@ -2,6 +2,7 @@ package com.aka.games;
 
 import javafx.beans.binding.ObjectExpression;
 
+import javax.swing.*;
 import java.util.*;
 
 public class Main {
@@ -9,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         boolean isEnough = false;
-        while (!isEnough){
+        while (!isEnough) {
 
             String[] gameList = {"Hangman", "Dice for risk", "GTA"};
 
@@ -21,7 +22,6 @@ public class Main {
             switch (option) {
                 case 0:
                     System.exit(0);
-                    isEnough = true;
                     break;
                 case 1:
                     Hangman start = new Hangman();
@@ -32,7 +32,11 @@ public class Main {
                     startDice.game();
                     break;
                 case 3:
-                    System.out.println(3);
+                    GTA GTAStart = new GTA();
+                    GTAStart.image();
+                    GTAStart.setVisible(true);
+                    GTAStart.pack();
+                    GTAStart.setTitle("BUSTED!");
                     break;
             }
         }
